@@ -1,0 +1,24 @@
+---
+title: "Datensatz `tips` in Train- und Testteil aufteilen"
+author: "SEbastian Sauer"
+date: "2/5/2020"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
+
+```{r}
+data(tips, package = "reshape2")
+
+set.seed(42)
+tips_index <- sample(c(rep(TRUE, 122), rep(FALSE, 122)), size = 244)
+
+tips_train <- tips %>% filter(tips_index)
+tips_test <- tips %>% filter(!tips_index)
+
+write.csv(tips_train,  "tips_train.csv")
+write.csv(tips_test,  "tips_test.csv")
+```

@@ -1,0 +1,117 @@
+---
+title: "Vorhersagemodellierung VORLAGE"
+author: "Gabi Musterstudentin, Horst Vozeigestudent, Biene Maja"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+  word_document: null
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+
+---
+
+**HINWEIS**
+
+
+Dokumentieren Sie Ihre Analyse anhand dieser Vorlage. Die Dokumentation ist für die Prüfung einzureichen.
+
+---
+
+
+
+
+```{r knitr-setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(mosaic) # Das Paket mosaic wird geladen
+```
+
+<!-- Sollten Umlaute falsch angezeigt werden: "File -> Reopen with Encoding -> UTF8" -->
+
+# Einleitung
+
+Die Einleitung in die Aufgabenstellung usw. wird bei Gruppenarbeiten von allen zusammen geschrieben.
+
+Ungefährer Umfang: 0,5--1,5 Seiten. 
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+# Explorative Datenanalyse und Datenvorverarbeitung^[Gabi Musterstudentin]
+
+Daten einlesen:
+
+```{r}
+train <- read.csv2("../data/tips_train.csv")
+anwendung <- read.csv2("../data/tips_test.csv")
+
+inspect(train)  # Hat das Einlesen funktioniert?
+```
+
+Hinweis: Das direkte Einlesen ohne Pfadangabe gelingt nur, wenn die Daten im *aktuellen* Arbeitsverzeichnis (Befehl: `getwd()`) liegen. Ansonsten mit Pfadangabe einlesen. Den genauen Pfad koennen Sie  z.B. über `file.choose()` und dann die Datei auswählen ermitteln.
+
+Führen Sie hier eine Explorative Datenanalyse der von Ihnen verwendeten Variablen der Trainingsdaten durch. Auch eine evtl. Datenvorverarbeitung erfolgt in diesem Abschnitt.
+
+Bei Einzelarbeiten sollte der reine Text (ohne Code, Abbildungen etc.) einen Umfang von ca. 1--2 Seiten haben, bei Gruppenarbeiten einen von ca. 2--4 Seiten.
+
+```{r}
+gf_histogram( ~ total_bill, data = train)
+```
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+# Methodenbeschreibung^[Horst Vozeigestudent]
+
+Bei Gruppenarbeiten mit weniger als drei Teilnehmer\*innen entfällt dieser Abschnitt. Bei Gruppenarbeiten mit drei oder mehr Teilnehmer\*innen: gehen Sie hier auf die verwendete Methode zur Modellierung, Variablen, und Modellauswahl ein. Zitieren Sie hier auch die methodische Literatur. Der Abschnitt sollte einen Umfang von 2--4 Seiten haben.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+# Anwendung, Ergebnis und Vorhersage^[Biene Maja]
+
+Wenden Sie hier Ihr Modell an und Interpretieren Sie Ihr Ergebnis. Bei Einzelarbeiten sollte der reine Text (ohne Code, Abbildungen etc.) einen Umfang von ca. 1--2 Seiten haben, bei Gruppenarbeiten einen von ca. 2--4 Seiten.
+
+Modell schätzen:
+
+```{r}
+lm.model <- lm(total_bill ~ size, data = train)
+summary(lm.model)
+```
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+Modell zur Vorhersage anwenden:
+
+```{r}
+lm.predict <- predict(lm.model, newdata = anwendung)
+```
+
+Kontrolle und Export:
+
+```{r}
+inspect(lm.predict)
+write.csv2(lm.predict, file = "Prognose_IhrName.csv")
+```
+
+
+# Zusammenfassung
+
+Fassen Sie gemeinsam kurz die zentralen Ergebnisse zusammen (0,5--1 Seite). Gehen Sie auch auf die Grenzen Ihrer Analyse ein.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+
+
+
+***
+
+# Literatur
+
+Hier stehen die im Text verwendeten Quellen:
+
+- Nachname Autor1, Anfangsbuchstabe Vorname Autor1, Nachname Autor2, Anfangsbuchstabe Vorname Autor2 1 & Nachname Autor3, Anfangsbuchstabe Vorname Autor3 (Jahr der Veröffentlichung). Titel des Beitrags. Weitere Publikationsinformationen.

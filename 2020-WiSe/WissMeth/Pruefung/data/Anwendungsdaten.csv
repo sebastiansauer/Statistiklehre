@@ -1,0 +1,301 @@
+jobTitle;gender;age;perfEval;edu;dept;seniority
+Sales Associate;Female;52;3,912023005428146;Masters;Engineering;2
+Marketing Associate;Female;56;2,995732273553991;High School;Operations;5
+Marketing Associate;Female;38;2,995732273553991;High School;Management;5
+Graphic Designer;Male;19;3,6888794541139363;Masters;Sales;1
+Manager;Male;57;3,4011973816621555;PhD;Operations;5
+Manager;Male;48;3,6888794541139363;PhD;Sales;4
+Financial Analyst;Male;33;3,912023005428146;Masters;Operations;1
+Financial Analyst;Male;60;2,302585092994046;PhD;Sales;2
+Marketing Associate;Female;27;3,6888794541139363;High School;Sales;4
+Data Scientist;Male;41;2,302585092994046;College;Operations;5
+Data Scientist;Female;24;3,6888794541139363;College;Administration;4
+Marketing Associate;Male;47;2,995732273553991;PhD;Sales;3
+IT;Female;28;2,302585092994046;High School;Management;1
+Sales Associate;Male;44;3,912023005428146;Masters;Administration;2
+Financial Analyst;Male;60;3,912023005428146;High School;Engineering;4
+Driver;Male;25;3,4011973816621555;PhD;Engineering;5
+Software Engineer;Male;22;3,912023005428146;Masters;Management;3
+Marketing Associate;Female;56;2,995732273553991;High School;Sales;3
+Marketing Associate;Female;41;2,302585092994046;PhD;Management;5
+Marketing Associate;Female;51;2,995732273553991;High School;Management;2
+Sales Associate;Male;57;2,302585092994046;PhD;Administration;5
+Data Scientist;Male;59;3,6888794541139363;Masters;Sales;1
+Graphic Designer;Female;48;3,6888794541139363;College;Administration;4
+Financial Analyst;Female;23;3,912023005428146;PhD;Administration;5
+Driver;Female;50;3,4011973816621555;High School;Engineering;2
+Financial Analyst;Female;41;2,995732273553991;PhD;Operations;3
+Data Scientist;Male;37;2,302585092994046;PhD;Administration;2
+Data Scientist;Female;33;2,995732273553991;High School;Operations;4
+Data Scientist;Male;45;2,302585092994046;Masters;Operations;3
+Driver;Female;61;2,995732273553991;College;Management;4
+Marketing Associate;Female;52;2,302585092994046;PhD;Sales;3
+Financial Analyst;Male;64;3,912023005428146;High School;Operations;3
+Sales Associate;Male;18;2,302585092994046;Masters;Administration;3
+IT;Female;47;2,302585092994046;PhD;Operations;3
+Financial Analyst;Male;30;3,912023005428146;Masters;Sales;1
+Marketing Associate;Female;28;2,302585092994046;Masters;Engineering;5
+Sales Associate;Male;36;2,995732273553991;High School;Management;1
+Graphic Designer;Female;61;2,302585092994046;Masters;Engineering;1
+Financial Analyst;Female;49;2,302585092994046;PhD;Engineering;1
+Financial Analyst;Male;43;2,302585092994046;PhD;Sales;4
+Software Engineer;Male;42;3,4011973816621555;Masters;Engineering;5
+Warehouse Associate;Female;35;3,912023005428146;PhD;Operations;4
+Financial Analyst;Male;58;3,6888794541139363;College;Operations;4
+IT;Female;57;2,995732273553991;High School;Administration;1
+Financial Analyst;Male;40;3,4011973816621555;PhD;Sales;3
+Data Scientist;Female;55;2,995732273553991;Masters;Sales;5
+Manager;Male;45;3,912023005428146;High School;Engineering;3
+Data Scientist;Male;62;3,6888794541139363;College;Operations;3
+Manager;Female;34;3,4011973816621555;Masters;Management;2
+Financial Analyst;Female;19;3,912023005428146;College;Sales;3
+Marketing Associate;Female;42;2,995732273553991;College;Administration;5
+Software Engineer;Male;65;3,6888794541139363;High School;Engineering;1
+Sales Associate;Female;57;3,912023005428146;Masters;Operations;3
+Marketing Associate;Female;34;3,912023005428146;Masters;Engineering;1
+Manager;Male;61;2,995732273553991;College;Sales;1
+Marketing Associate;Female;39;3,912023005428146;College;Sales;5
+Manager;Male;62;3,912023005428146;College;Administration;5
+Graphic Designer;Female;63;2,302585092994046;College;Administration;2
+Marketing Associate;Female;59;2,302585092994046;Masters;Sales;3
+Manager;Female;45;2,302585092994046;High School;Engineering;5
+Data Scientist;Female;33;3,4011973816621555;High School;Administration;3
+Driver;Male;54;3,912023005428146;PhD;Administration;4
+IT;Female;26;2,302585092994046;PhD;Sales;5
+Warehouse Associate;Male;21;3,912023005428146;PhD;Management;1
+Manager;Female;32;2,995732273553991;PhD;Management;2
+IT;Male;19;3,912023005428146;College;Administration;4
+Driver;Female;34;2,995732273553991;High School;Management;3
+Marketing Associate;Female;30;3,4011973816621555;Masters;Administration;1
+IT;Female;54;2,995732273553991;Masters;Administration;3
+Sales Associate;Female;34;3,4011973816621555;High School;Sales;4
+Marketing Associate;Female;56;2,995732273553991;High School;Engineering;3
+Sales Associate;Male;58;3,912023005428146;PhD;Sales;2
+Sales Associate;Female;60;2,995732273553991;PhD;Engineering;5
+Warehouse Associate;Male;34;2,302585092994046;Masters;Operations;1
+Manager;Male;36;2,995732273553991;Masters;Sales;3
+Data Scientist;Male;23;3,4011973816621555;Masters;Administration;1
+Graphic Designer;Male;22;3,912023005428146;PhD;Administration;1
+Graphic Designer;Female;31;3,6888794541139363;College;Engineering;2
+Software Engineer;Male;51;2,302585092994046;College;Management;2
+Graphic Designer;Male;49;3,912023005428146;College;Management;4
+Warehouse Associate;Female;59;2,995732273553991;College;Management;2
+Sales Associate;Female;47;3,4011973816621555;College;Engineering;2
+Data Scientist;Male;38;3,912023005428146;College;Administration;5
+Marketing Associate;Female;62;3,6888794541139363;College;Sales;1
+Financial Analyst;Male;32;3,6888794541139363;Masters;Sales;3
+Driver;Male;63;3,6888794541139363;High School;Sales;2
+Marketing Associate;Female;36;3,6888794541139363;High School;Operations;5
+Marketing Associate;Female;44;2,995732273553991;PhD;Management;2
+IT;Male;43;3,912023005428146;College;Operations;4
+Financial Analyst;Male;39;3,6888794541139363;PhD;Management;3
+Driver;Male;49;3,6888794541139363;College;Sales;5
+Sales Associate;Male;22;3,912023005428146;High School;Administration;1
+Graphic Designer;Female;47;2,302585092994046;High School;Operations;5
+Software Engineer;Male;21;3,912023005428146;College;Management;5
+Warehouse Associate;Female;22;3,4011973816621555;College;Sales;4
+Sales Associate;Male;51;3,4011973816621555;PhD;Operations;4
+Sales Associate;Female;57;2,302585092994046;Masters;Operations;3
+IT;Male;55;3,912023005428146;College;Management;5
+Sales Associate;Male;56;2,302585092994046;High School;Operations;1
+Marketing Associate;Female;34;2,302585092994046;College;Engineering;2
+Warehouse Associate;Male;56;3,4011973816621555;Masters;Administration;2
+Sales Associate;Male;49;2,995732273553991;Masters;Operations;2
+Software Engineer;Male;40;3,912023005428146;PhD;Management;4
+Data Scientist;Male;41;3,4011973816621555;Masters;Administration;4
+Data Scientist;Male;22;3,6888794541139363;High School;Management;2
+Data Scientist;Male;40;2,995732273553991;Masters;Management;2
+Sales Associate;Male;35;3,912023005428146;Masters;Management;5
+Data Scientist;Male;26;3,6888794541139363;High School;Management;3
+Marketing Associate;Female;38;2,302585092994046;PhD;Engineering;1
+Software Engineer;Male;64;2,995732273553991;PhD;Engineering;4
+Software Engineer;Female;36;2,302585092994046;PhD;Management;1
+Marketing Associate;Female;54;3,4011973816621555;PhD;Engineering;5
+Manager;Male;55;2,995732273553991;College;Management;5
+IT;Male;40;3,4011973816621555;College;Administration;3
+Graphic Designer;Female;33;2,302585092994046;High School;Sales;1
+Software Engineer;Male;35;2,995732273553991;Masters;Management;3
+Financial Analyst;Male;53;3,912023005428146;Masters;Administration;3
+Data Scientist;Female;30;3,912023005428146;College;Engineering;5
+IT;Male;20;2,995732273553991;PhD;Management;1
+Warehouse Associate;Female;55;2,995732273553991;PhD;Administration;3
+Graphic Designer;Male;23;3,912023005428146;Masters;Management;3
+Marketing Associate;Female;36;3,4011973816621555;Masters;Sales;3
+Driver;Male;24;2,995732273553991;College;Management;3
+Financial Analyst;Male;38;3,4011973816621555;Masters;Administration;1
+Marketing Associate;Female;59;2,302585092994046;College;Engineering;1
+Warehouse Associate;Male;49;3,912023005428146;High School;Sales;4
+Warehouse Associate;Male;33;3,4011973816621555;College;Administration;1
+Driver;Female;61;3,912023005428146;PhD;Sales;4
+Driver;Female;19;2,995732273553991;College;Sales;2
+IT;Female;34;3,912023005428146;College;Operations;1
+Marketing Associate;Female;25;2,302585092994046;High School;Sales;1
+Software Engineer;Male;36;3,6888794541139363;Masters;Engineering;5
+Warehouse Associate;Female;47;2,995732273553991;College;Administration;2
+Warehouse Associate;Female;42;3,4011973816621555;Masters;Engineering;1
+Financial Analyst;Male;20;3,6888794541139363;High School;Operations;2
+Software Engineer;Male;45;3,6888794541139363;Masters;Operations;2
+Data Scientist;Male;62;3,4011973816621555;PhD;Sales;3
+Driver;Male;58;2,995732273553991;College;Sales;4
+Financial Analyst;Male;45;3,6888794541139363;High School;Operations;2
+Warehouse Associate;Male;42;2,995732273553991;PhD;Operations;3
+Graphic Designer;Male;31;3,912023005428146;PhD;Engineering;1
+Driver;Male;64;2,995732273553991;Masters;Operations;2
+Manager;Male;31;2,995732273553991;College;Operations;1
+Software Engineer;Male;64;3,912023005428146;College;Sales;4
+Marketing Associate;Female;32;2,995732273553991;College;Sales;3
+Warehouse Associate;Male;46;3,4011973816621555;High School;Operations;4
+Financial Analyst;Female;65;2,302585092994046;High School;Administration;2
+Financial Analyst;Female;48;3,6888794541139363;Masters;Management;5
+Marketing Associate;Female;52;3,4011973816621555;High School;Sales;3
+Software Engineer;Male;53;3,4011973816621555;High School;Management;3
+Driver;Female;56;3,6888794541139363;PhD;Sales;3
+Marketing Associate;Female;55;3,6888794541139363;High School;Administration;2
+Warehouse Associate;Male;58;3,912023005428146;College;Sales;4
+Sales Associate;Female;31;3,912023005428146;College;Management;1
+Data Scientist;Male;27;2,995732273553991;College;Engineering;1
+Financial Analyst;Female;43;3,912023005428146;PhD;Management;3
+Driver;Male;57;3,6888794541139363;College;Sales;4
+Sales Associate;Male;63;2,995732273553991;Masters;Engineering;3
+Software Engineer;Male;39;3,6888794541139363;High School;Sales;4
+Warehouse Associate;Male;26;3,4011973816621555;High School;Sales;3
+Warehouse Associate;Female;53;3,912023005428146;College;Engineering;5
+Data Scientist;Male;18;3,912023005428146;High School;Operations;2
+Software Engineer;Male;63;3,4011973816621555;PhD;Engineering;2
+Driver;Female;42;2,302585092994046;Masters;Sales;5
+IT;Female;32;2,995732273553991;High School;Engineering;1
+Software Engineer;Male;59;3,912023005428146;Masters;Engineering;1
+Manager;Male;57;3,6888794541139363;Masters;Operations;3
+Warehouse Associate;Male;49;3,4011973816621555;PhD;Operations;4
+Warehouse Associate;Male;18;2,995732273553991;College;Administration;5
+Financial Analyst;Male;44;3,912023005428146;Masters;Administration;4
+Software Engineer;Male;20;3,912023005428146;Masters;Management;2
+Warehouse Associate;Male;33;2,302585092994046;College;Engineering;5
+Warehouse Associate;Male;37;2,995732273553991;Masters;Administration;1
+IT;Male;33;2,995732273553991;Masters;Engineering;5
+Warehouse Associate;Male;48;3,912023005428146;PhD;Management;2
+Sales Associate;Male;62;2,302585092994046;Masters;Administration;2
+Warehouse Associate;Female;41;3,6888794541139363;Masters;Engineering;3
+Driver;Male;18;3,4011973816621555;PhD;Operations;3
+Graphic Designer;Female;63;2,995732273553991;College;Operations;4
+IT;Female;62;3,6888794541139363;College;Operations;2
+Data Scientist;Male;19;2,995732273553991;PhD;Management;5
+Sales Associate;Male;24;3,912023005428146;High School;Administration;1
+Software Engineer;Male;18;3,6888794541139363;PhD;Engineering;5
+Software Engineer;Male;26;3,4011973816621555;High School;Sales;2
+Graphic Designer;Female;44;2,302585092994046;College;Sales;3
+Financial Analyst;Female;45;2,995732273553991;Masters;Administration;5
+IT;Male;33;2,995732273553991;Masters;Sales;1
+IT;Male;31;2,302585092994046;Masters;Sales;2
+Sales Associate;Female;19;2,302585092994046;College;Management;4
+IT;Female;38;3,912023005428146;College;Administration;5
+Financial Analyst;Female;63;3,4011973816621555;PhD;Engineering;3
+IT;Male;31;2,302585092994046;College;Operations;1
+Driver;Female;18;3,6888794541139363;Masters;Administration;2
+Graphic Designer;Female;57;2,995732273553991;Masters;Sales;5
+IT;Male;35;2,302585092994046;College;Management;4
+Marketing Associate;Female;53;2,302585092994046;Masters;Operations;1
+Financial Analyst;Male;26;3,912023005428146;College;Engineering;4
+Marketing Associate;Female;44;3,912023005428146;High School;Sales;1
+Software Engineer;Male;30;2,995732273553991;Masters;Engineering;5
+Software Engineer;Male;63;3,6888794541139363;High School;Administration;5
+Graphic Designer;Female;26;3,912023005428146;College;Engineering;2
+Manager;Male;31;3,4011973816621555;PhD;Engineering;2
+Data Scientist;Male;57;2,302585092994046;Masters;Sales;2
+Warehouse Associate;Male;23;2,995732273553991;College;Management;4
+Software Engineer;Male;21;2,302585092994046;High School;Engineering;2
+Graphic Designer;Male;29;2,302585092994046;Masters;Operations;3
+Driver;Female;20;2,302585092994046;College;Management;3
+Marketing Associate;Female;64;3,912023005428146;PhD;Sales;2
+Financial Analyst;Male;47;2,995732273553991;High School;Management;1
+Software Engineer;Male;33;3,912023005428146;PhD;Administration;2
+Driver;Male;35;2,995732273553991;High School;Administration;5
+Marketing Associate;Female;64;3,6888794541139363;College;Sales;5
+Sales Associate;Male;29;3,4011973816621555;Masters;Management;2
+Software Engineer;Male;59;3,6888794541139363;High School;Operations;4
+Marketing Associate;Female;22;3,6888794541139363;PhD;Operations;1
+Software Engineer;Male;65;3,912023005428146;Masters;Sales;1
+IT;Female;28;2,302585092994046;PhD;Sales;5
+Sales Associate;Female;41;2,995732273553991;College;Sales;1
+IT;Male;53;3,912023005428146;PhD;Management;5
+Graphic Designer;Male;63;3,912023005428146;PhD;Engineering;1
+Financial Analyst;Male;26;3,6888794541139363;College;Operations;4
+IT;Female;38;3,6888794541139363;High School;Sales;2
+Graphic Designer;Male;65;3,6888794541139363;College;Management;4
+Manager;Male;60;2,995732273553991;College;Sales;1
+Software Engineer;Male;56;3,912023005428146;PhD;Administration;5
+Graphic Designer;Female;35;2,995732273553991;High School;Engineering;5
+Manager;Male;46;3,6888794541139363;Masters;Sales;1
+Sales Associate;Male;28;3,4011973816621555;College;Management;3
+Graphic Designer;Female;59;3,6888794541139363;PhD;Management;4
+Driver;Male;30;3,6888794541139363;Masters;Operations;1
+IT;Male;64;3,912023005428146;PhD;Management;2
+Marketing Associate;Male;49;3,4011973816621555;High School;Administration;4
+Software Engineer;Male;31;3,912023005428146;PhD;Sales;2
+Software Engineer;Male;63;3,912023005428146;College;Operations;2
+Data Scientist;Female;32;3,912023005428146;PhD;Engineering;1
+IT;Male;63;3,912023005428146;Masters;Operations;5
+IT;Male;18;3,6888794541139363;Masters;Administration;4
+Warehouse Associate;Female;37;3,4011973816621555;High School;Engineering;5
+Marketing Associate;Female;62;3,4011973816621555;PhD;Operations;5
+Marketing Associate;Female;64;3,912023005428146;PhD;Sales;5
+Warehouse Associate;Female;38;3,4011973816621555;College;Administration;5
+Financial Analyst;Female;52;3,912023005428146;High School;Engineering;2
+Driver;Female;45;3,4011973816621555;PhD;Management;3
+Financial Analyst;Male;29;2,302585092994046;Masters;Operations;2
+Marketing Associate;Female;34;3,4011973816621555;High School;Sales;5
+Manager;Male;19;3,6888794541139363;PhD;Sales;5
+IT;Male;19;3,6888794541139363;College;Engineering;3
+Software Engineer;Male;64;2,302585092994046;Masters;Sales;1
+Sales Associate;Male;61;3,912023005428146;PhD;Management;1
+IT;Male;20;3,6888794541139363;PhD;Engineering;2
+Data Scientist;Male;53;3,912023005428146;High School;Management;2
+Driver;Male;34;3,6888794541139363;College;Administration;5
+Software Engineer;Male;19;3,912023005428146;Masters;Administration;4
+Driver;Female;58;3,6888794541139363;High School;Sales;5
+Marketing Associate;Male;27;3,6888794541139363;College;Management;1
+Manager;Female;32;3,912023005428146;PhD;Operations;1
+Graphic Designer;Female;22;2,995732273553991;Masters;Operations;4
+Software Engineer;Male;42;2,995732273553991;College;Administration;3
+Marketing Associate;Female;20;2,995732273553991;College;Administration;2
+Financial Analyst;Female;36;3,4011973816621555;College;Engineering;2
+Warehouse Associate;Female;61;2,302585092994046;Masters;Management;3
+Data Scientist;Male;19;3,912023005428146;High School;Operations;2
+Driver;Male;54;3,4011973816621555;PhD;Sales;2
+Software Engineer;Male;64;3,912023005428146;High School;Operations;2
+Financial Analyst;Male;39;3,4011973816621555;Masters;Engineering;4
+Graphic Designer;Female;38;2,302585092994046;High School;Administration;4
+Data Scientist;Female;34;3,4011973816621555;PhD;Administration;1
+Warehouse Associate;Female;47;3,6888794541139363;College;Administration;2
+IT;Male;62;2,302585092994046;PhD;Management;2
+Manager;Male;22;2,302585092994046;College;Management;2
+IT;Male;34;3,4011973816621555;College;Sales;4
+Warehouse Associate;Male;46;3,912023005428146;PhD;Sales;1
+Marketing Associate;Female;45;3,4011973816621555;Masters;Sales;3
+Financial Analyst;Male;48;2,302585092994046;High School;Operations;1
+Marketing Associate;Female;33;3,912023005428146;High School;Engineering;1
+Data Scientist;Female;21;2,302585092994046;PhD;Engineering;2
+Warehouse Associate;Male;37;3,6888794541139363;High School;Management;3
+Sales Associate;Male;58;3,912023005428146;High School;Engineering;5
+Financial Analyst;Male;39;2,302585092994046;College;Engineering;4
+Marketing Associate;Female;53;3,912023005428146;College;Administration;1
+Warehouse Associate;Male;24;2,302585092994046;College;Engineering;3
+Software Engineer;Male;29;3,4011973816621555;Masters;Operations;2
+Sales Associate;Male;54;2,302585092994046;College;Administration;3
+Data Scientist;Male;56;3,4011973816621555;Masters;Engineering;3
+Sales Associate;Male;62;3,4011973816621555;College;Management;3
+Marketing Associate;Female;50;3,4011973816621555;Masters;Sales;5
+Software Engineer;Male;18;3,4011973816621555;Masters;Engineering;2
+IT;Male;50;2,995732273553991;Masters;Management;3
+IT;Female;36;3,4011973816621555;PhD;Management;3
+Driver;Male;55;2,995732273553991;College;Administration;2
+IT;Male;18;3,912023005428146;High School;Engineering;1
+Graphic Designer;Male;46;3,912023005428146;High School;Engineering;4
+Manager;Male;21;2,995732273553991;PhD;Operations;3
+Marketing Associate;Female;35;3,912023005428146;PhD;Engineering;5
+Financial Analyst;Female;21;3,6888794541139363;Masters;Operations;4
+Manager;Male;21;3,6888794541139363;High School;Engineering;3
+Warehouse Associate;Male;36;3,912023005428146;PhD;Engineering;5
+Graphic Designer;Female;45;2,302585092994046;High School;Management;3
+Graphic Designer;Female;43;2,302585092994046;PhD;Engineering;1
+Software Engineer;Male;51;2,995732273553991;Masters;Engineering;3

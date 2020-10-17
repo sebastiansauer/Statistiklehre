@@ -1,0 +1,249 @@
+---
+title: "Beispielanalyse zum Prognose-Wettbewerb"
+author: "Sebastian Sauer"
+output: 
+  html_document:
+    number_sections: TRUE
+    toc: TRUE
+---
+
+
+# Beschreibung der Aufgabe
+
+
+Im Datensatz `tips` soll die Zielvariable `tip` im *Test*-Datensatz vorhergesagt werden. Dazu können alle übrigen Variablen im Trainings-Datensatz als Prädiktoren herangezogen werden.
+
+
+
+# Pakete laden
+
+```{r message = FALSE}
+library(mosaic)
+```
+
+
+# Daten laden
+
+Den Train-Datensatz haben Sie vorliegen. Den Test-Datensatz nutzen Sie zur Vorhersage. Die "Lösung" -- die voherzusagenden Werte -- sind nur der Lehrperson bekannt.
+
+
+```{r}
+tips_train <- read.csv2("../data/tips_train.csv")
+tips_test <- read.csv2("../data/tips_test.csv")
+```
+
+
+# Unbekannte Variable auf NA setzen
+
+Das Trinkgeld (`tip`) ist vorherzusagen, aber unbekannt. Löschen wir also die Werte dieser Variablen. Die harte Wirklichkeit ...
+
+
+Zuerst ein Backup:
+
+```{r}
+tips_test_mit_Loesung <- tips_test
+```
+
+
+Dann das Löschen:
+
+```{r}
+tips_test$tip <- NA
+```
+
+
+Keine Sorge: Dieser Schritt wird von der Lehrperson erledigt. Sie bekommen schon den "richtigen" Test-Datensatz (wo die vorherzusagende Variable auf NA gesetzt ist).
+
+
+
+
+# Datenvorverarbeitung
+
+Z.B. Analyse nach Extremwerten, Datentransformation; hier nicht ausgeführt. 
+
+
+
+# Ein Blick in die Daten
+
+```{r}
+head(tips_train)
+```
+
+
+```{r}
+head(tips_test)
+```
+
+
+# Modellierung im Trainings-Datensatz (Phase 1)
+
+## Modell 1
+
+```{r}
+modell1 <- lm(tip ~ smoker, data = tips_train)
+summary(modell1)
+```
+
+
+Hm, das $R^2$ ist noch nicht so gut...
+
+## Modell 2
+
+```{r}
+modell2 <- lm(tip ~ smoker + size, data = tips_train)
+summary(modell2)
+```
+
+Schon viel besser!
+
+
+## Modell 3
+
+
+
+```{r}
+modell3 <- lm(tip ~ smoker + size + sex, data = tips_train)
+summary(modell3)
+```
+
+Scheint nicht mehr besser zu werden ?!
+
+
+
+
+Oder probieren wir doch noch ein anderes Modell ...
+
+
+# Modell 4 - mit Log-Transformation
+
+```{r}
+modell4 <- lm(log(tip) ~ smoker + size + sex, data = tips_train)
+summary(modell4)
+```
+
+*Tipp:* Es gibt auch Funktionen zur automatischen Modellwahl.
+
+## Achtung bei transformierten AV!
+
+Haben Sie in Ihrem Modell die AV (Ziel-Variable) transformiert (z.B. logarithmiert), so müssen Sie *trotzdem* die untransformierten Vorhersagen einreichen!
+
+
+Vorhersagen in der Log-Skala:
+
+```{r}
+modell4_predictions_log <- predict(modell4, newdata = tips_test)
+head(modell4_predictions_log)
+```
+
+Vorhersagen rücktransformiert in die "normale" Skalierung -- allerdings muss hier ein Korrekturterm ergänzt werden, hier z. B. unter der Annahme einer Normalverteilung der Residuen. Alternativ könnte auch zu Beginn ein generalisiertes lineares Modell mit Linkfunktion (`glm()`) verwendet werden.
+
+
+```{r}
+modell4_predictions <- exp(modell4_predictions_log)
+modell4_predictions <- modell4_predictions * exp((sum(modell4$residuals^2)/modell4$df.residual)/2)
+
+head(modell4_predictions)
+```
+
+
+
+*Hinweis*: Die Exponentialfunktion ist die Umkehrfunktion zur Logarithmus-Funktion.
+
+Einzureichen ist also `modell4_predictions` -- nicht die logarithmierten Vorhersagen!
+
+
+
+# Vorhersage der Zielvariablen im Test-Datendatz (Phase 2)
+
+Wir nehmen unser bestes Modell, um die Zielvariable im Test-Datensatz vorherzusagen.
+
+```{r}
+modell3_predictions <- predict(modell3, newdata = tips_test)
+```
+
+*Diese* Daten reichen Sie dann ein.
+
+
+# CSV-Datei mit den vorgesagten Werten erstellen
+
+
+Der Name der CSV-Datei sollte das Format aufweisen `Vorhersage_IhrName.csv`.
+
+```{r}
+write.csv2(modell3_predictions, "Vorhersage_RudiRaetsel.csv")
+```
+
+
+Diese CSV-Datei `Vorhersage_RudiRaetsel.csv` reichen Sie ein!
+
+
+# Güte der Vorhersage bemessen (Phase 3, von der Lehrperson durchgeführt)
+
+Diese Phase wird vom Dozenten durchgeführt. Sie müssen diese Phase nicht durchführen.
+
+
+## Funktionen zur Berechnung der Modellgüte
+
+$R^2$:
+
+```{r}
+r2 <- function(predicted, observed) {
+  
+  rss <- sum((predicted - observed) ^ 2)  ## residual sum of squares
+  tss <- sum((observed - mean(observed)) ^ 2)  ## total sum of squares
+  rsq <- 1 - rss/tss
+  
+  rsq <- c(rsq = rsq)
+
+  return(rsq)
+
+}
+
+```
+
+
+
+$MAE$:
+
+```{r mae-fun}
+mae <- function(predicted, observed)
+{
+  error <- predicted - observed
+  mae <- mean(abs(error))
+  mae <- c(mae = mae)
+  
+  return(mae)
+}
+```
+
+
+
+
+Für das Modell 3:
+
+
+```{r}
+modell3_r2 <- r2(modell3_predictions, tips_test_mit_Loesung$tip)
+modell3_r2
+
+modell3_mae <- mae(modell3_predictions, tips_test_mit_Loesung$tip)
+modell3_mae
+```
+
+
+Für das Modell 4:
+
+```{r}
+modell4_r2 <- r2(modell4_predictions, tips_test_mit_Loesung$tip)
+modell4_r2
+
+modell4_mae <- mae(modell4_predictions, tips_test_mit_Loesung$tip)
+modell4_mae
+```
+
+
+Hm, die Vorhersagequalität war noch nicht so gut. Vielleicht hätten wir den Datensatz noch besser aufbereiten sollen? Oder mehr/andere Prädiktoren in das Modell aufnehmen sollen? Oder ...
+
+
+
+
