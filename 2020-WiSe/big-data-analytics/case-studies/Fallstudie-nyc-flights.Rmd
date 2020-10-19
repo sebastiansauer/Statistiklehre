@@ -1,0 +1,739 @@
+---
+title: NYC Flights
+author: Sebastian Sauer
+date: '`r Sys.Date()`'
+slug: nyc-flights
+categories: []
+output:
+  html_document:
+    df_print: paged
+    number_sections: yes
+    toc: yes
+  pdf_document:
+    toc: yes
+tags: 
+- Prognose
+- Regression
+---
+
+
+
+```{r include = FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  cache = TRUE,
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold",
+  size = "tiny"
+)
+
+```
+
+# Fallstudie NYC Flights
+
+Aufgabe: Vorhersage von Verspätungen der Flüge von den Flughäfen von New York City im Jahr 2013.
+
+
+
+## Vorbereitung
+
+
+Pakete laden:
+
+```{r}
+library(mosaic)
+library(tidyverse)
+library(lubridate)
+library(corrr)
+library(caret)
+library(doMC)
+library(ranger)
+library(sjmisc)
+```
+
+Daten laden:
+
+```{r}
+library(nycflights13)
+data(flights)
+glimpse(flights)
+```
+
+
+
+
+## Explorative Datenanalyse
+
+
+### Wie ist die Verspätung verteilt?
+
+Es gibt zwei Variablen, die Verspätung anzeigen: `arr_delay` (Ankunft) und `dep_delay`.
+
+```{r}
+favstats(arr_delay ~ 1, data = flights)
+favstats(dep_delay ~ 1, data = flights)
+```
+
+Nehmen wir `arr_delay`, da die Streuung in dieser Variable höher ist.
+
+### VERTIEFUNG
+
+
+Möchte man einen Befehl auf mehrere Spalten anwenden, so kann man dafür den Befehl `map()` verwendet. `map()` führt ein Befehl auf jede Spalte eines Dataframes aus. Damit man da Ergebnis in Form eines Dataframes (Tabelle) bekommt, fügt man `_df` an `map()` an:
+
+
+```{r}
+flights %>% 
+  select(arr_delay, dep_delay) %>% 
+  map_df(favstats)
+```
+
+
+Für den IQR:
+
+```{r}
+flights %>% 
+  select(arr_delay, dep_delay) %>% 
+  drop_na() %>% 
+  map_df(iqr)
+```
+
+
+### Visualisierung der Verteilung
+
+```{r fig.show = "hold"}
+gf_histogram( ~ arr_delay, data = flights)
+gf_violin(arr_delay ~ 1, data = flights)
+```
+
+
+Aufgrund des langen rechten Randbereichs (hohe Verspätungswerte) ist das Diagramm nicht sher hilfreich.
+
+Begrenzen wir uns besser auf den "inneren" Teil der Flüge (was die Verspätung betrifft).
+
+
+```{r}
+flights %>% 
+  filter(arr_delay < 120) %>% 
+  gf_violin(arr_delay ~ 1, data = .)
+```
+
+
+
+### Saisonale Effekte 
+
+
+
+
+Es gibt sehr viele potenzielle Ursachen für die Verspätung eines Flugzeugs bzw. eines Flugs. Zu einigen Kandidaten liegen uns Daten vor. Eine naheliegende (obwohl nicht tiefer theoretisch fundierte) Annahme ist, dass es saisonale Einflüsse auf die Verspätung gibt. So könnte Schnee im Winter oder Weihnachtsstress zum Jahreswechsel für Verspätung sorgen. Am Wochenende sind die Menschen entspannter und es wird weniger gereist. Daher könnte es Samstags und Sonntags zu weniger Verspätung kommen. 
+
+
+#### Nach Jahreszeiten
+
+Berechnen wir die Jahreszeiten:
+
+
+```{r}
+flights2 <- flights %>% 
+  mutate(season = case_when(
+    month %in% c(11, 12, 1, 2, 3) ~ "winter",
+    month %in% c(6,7,9) ~ "summer",
+    month %in% c(4, 5) ~ "spring",
+    TRUE ~ "autumn"
+  ))
+```
+
+
+
+Verspätungen nach Jahreszeiten:
+
+```{r}
+favstats(arr_delay ~ season, data = flights2)
+```
+
+
+Im Sommer ist die Verspätung am höchsten. Vielleicht ist es besser, gleich auf Monate hin zu untersuchen:
+
+
+```{r}
+favstats(arr_delay ~ month, data = flights2)
+
+```
+
+Tatsächlich ist die Verspätung im Mittelwert am höchsten im Juni und Juli. Dabei ist zu beachten, dass die *mediane* Verspätung nur im Dezember positiv ist: Nur im Dezember haben die Flüge in New York im Median eine Verspätung. 
+
+
+#### Weihnachten 
+
+Liegt es an Weihnachten? Schauen wir uns die Tage im Dezember (und Januar?) genauer an. Dazu berechnen wir zuerst einen Spalte, die den Tag (und die Woche) berechnet.
+
+```{r}
+flights3 <- flights2 %>% 
+  mutate(dayinyear = yday(time_hour),
+         day_id = 365-(365-dayinyear),
+         week = week(time_hour))
+```
+
+
+
+```{r}
+flights3 %>% 
+  filter( (time_hour > "2013-11-30 23:59:59") ) %>% 
+  group_by(dayinyear) %>% 
+  summarise(arr_delay = median(arr_delay, na.rm = TRUE)) %>% 
+  gf_line(arr_delay ~ dayinyear, data = .)
+```
+
+Etwa zwei Wochen vor Jahresende, also noch deutlich vor den Feiertagen, kommt es zu den Verspätungsspitzen. Ob zu dieser Zeit die meisten Menschen in den Weihnachtsurlaub fliegen? Insgesamt lässt diese Betrachtung offenbar keine starken Schlüsse zu.
+
+#### Wochenende vs. Werktage
+
+Vielleicht sind die Wochentage die entspannten Tage ohne Verspätung? Schauen wir nach. Man beachte, dass die Woche in Amerika mit Sonntag (1) beginnt, demzufolge ist der Samstag der 7. Tag.
+
+
+```{r}
+flights3 %>% 
+  mutate(weekend = if_else(wday(time_hour) %in% c(1,7), TRUE, FALSE)) %>% 
+  group_by(weekend) %>% 
+  summarise(arr_delay_md = median(arr_delay, na.rm = TRUE))
+```
+
+Aha, das sind 4 Minuten weniger im Median am Wochenende (im Vergleich zu werktags). Im Verhältnis zur Streuung von 31 Minuten (IQR) ist das nicht Nichts, aber auch nicht die Welt.
+
+
+
+#### Verspätung pro Tag
+
+
+```{r}
+flights4 <- flights3 %>% 
+  mutate(day_rounded = round_date(time_hour, "day"))
+
+flights4 %>% 
+  group_by(day_rounded) %>% 
+  summarise(arr_delay_md = median(arr_delay, na.rm = TRUE)) %>% 
+  gf_line(arr_delay_md ~ day_rounded, data = .) %>% 
+  gf_smooth()
+```
+
+Die Spitzen sind so nicht direkt erschließbar. Betrachten wir abschließend die Verspätungen pro Woche.
+
+
+
+
+```{r}
+flights4 %>% 
+  mutate(week_rounded = round_date(time_hour, "week")) %>% 
+  group_by(week_rounded) %>% 
+  summarise(arr_delay_md = median(arr_delay, na.rm = TRUE)) %>% 
+  gf_line(arr_delay_md ~ week_rounded, data = .) %>% 
+  gf_smooth()
+```
+
+Der Zacken im Juli könnte mit dem Nationalfeierag in den USA zusammenhängen. Lassen wir diese Untersuchungen an dieser Stelle.
+
+
+### Wetter
+
+Die Wetterdaten sind in einer anderen Tabelle (`weather`), auch im Paket `nycflights13` gespeichert. Über Datum/Zeit können wir die Wetterdaten mit den Flugdaten zusammenführen. Dabei begnügen wir uns mit einer tagesgenauen Präzision, da die Wetterdaten nicht jede Stunde (Minute, Sekunde) abdecken.
+
+
+```{r}
+data(weather)
+glimpse(weather)
+
+weather2 <- weather %>% 
+  mutate(date_time = round_date(time_hour, "hour"),
+         day_rounded = round_date(time_hour, "day")) %>% 
+  group_by(day_rounded) %>% 
+  summarise_at(vars(temp, humid, wind_speed, precip, visib), median, na.rm = TRUE)
+```
+
+
+
+```{r}
+flights5 <- flights4 %>% 
+  inner_join(weather2, by = c("day_rounded" = "day_rounded"))
+```
+
+
+Wie ist die Korrelation der Wetterdaten mit der Verspätung?
+
+
+```{r}
+flights5 %>% 
+  select(temp, humid, wind_speed, precip, visib, arr_delay) %>% 
+  correlate() %>% 
+  focus(arr_delay)
+```
+
+
+Gut, etwas Zusammenhang mit Luftfeuchtigkeit (`humid`), aber ansonsten nicht viel zu sehen. Apropos sehen: Schlechte Sicht geht mit *weniger* Verspätung einher (?).
+
+
+
+## Modellierung
+
+
+### Datensatz bereinigen
+
+
+#### Variablen ohne Varianz 
+
+Variablen ohne Varianz sind wertlos für die Vorhersage, also entfernen wir sie. `caret` bietet dazu `nearZeroVar`. Natürlich kann man sich auch die Daten mit bloßem Auge ansehen, dann fällt auf, dass `year` den konstanten Wert 2013 aufweist.
+
+```{r}
+flights6 <- flights5 %>% 
+  select(-year)
+```
+
+
+#### Fehlende Werte
+
+Probieren wir die rabiate Methode:
+
+```{r}
+flights7 <- flights6 %>% 
+  drop_na()
+```
+
+
+Wie viel Prozent der Fälle haben wir verloren?
+
+```{r}
+nrow(flights7)/nrow(flights6)
+```
+
+Etwa 3%, das verschmerzen wir.
+
+#### Z-Skalieren
+
+
+Für viele Algorithmen ist es nötig (z.B. neuronale Netze), die Prädiktoren vorab zu standardisieren hinsichtlich Mittelwert und Streuung (z-Transformation). Das kann man z.B. so erreichen (via Paket `sjmisc`):
+
+
+```{r}
+flights7a <- std(flights7, suffix = "") 
+```
+
+
+
+### Kreuzvalidierungsmethode
+
+Um Überanpassung (Overfitting) zu vermeiden, verwenden wir eine 5-fach-Kreuzvalidierung.
+
+
+```{r my-crossval}
+my_crossval <- trainControl(method = "cv",
+                            number = 5,
+                            allowParallel = TRUE,
+                            verboseIter = FALSE)
+```
+
+
+`allowParallel` erlaubt die Verwendung mehrerer Rechenkerne, sofern initialisiert:
+
+```{r registercores}
+doMC::registerDoMC(cores = 2)
+```
+
+Achtung: Verdoppeln wir die Anzahl der Kerne, verdoppeln wir damit auch die Menge des benötigten Speichers.
+
+
+### Datensatz reduzieren
+
+Große Datensätze bringen einen Rechner leicht aus der Ruhe. Besonders kategoriale Variablen mit vielen Stufen sind schwierig, da sie (manuell oder je nach Funktion automatisch) in Dummy-Variablen umgewandelt werden müssen.
+
+Begrenzen wir uns daher auf metrische Variablen.
+
+```{r}
+flights8 <- flights7a %>% 
+  select_if(is.numeric)
+```
+
+
+Außerdem dürfen wir nicht vergessen, die andere Verspätungsvariable zu entferne (`dep_delay`).
+
+```{r}
+flights9 <- flights8 %>% 
+  select(-dep_delay)
+```
+
+
+
+
+### Redundante Variablen
+
+Haben wir noch redundante Variablen?
+
+```{r findlind-combos}
+findLinearCombos(flights9)
+```
+
+Ja!
+
+Entfernen wir sie:
+
+```{r}
+flights9a <- flights9 %>% 
+  select(-c(12,14))
+```
+
+
+### Datensatz aufteilen
+
+Teilen wir den Datensatz zu 80% in einen Übungsteil bzw. zu 20% in einen Testdatensatz auf. 
+
+```{r}
+n_uebung <- round(.8 * nrow(flights9a), digits = 0)
+
+uebung_index <- sample(1:nrow(flights9a), size = n_uebung)
+
+uebung_df <- filter(flights9a, row_number() %in% uebung_index)
+test_df <- filter(flights9a, !(row_number() %in% uebung_index))
+```
+
+
+Die Gesamtfallzahl muss der Summe aus Übungs- und Test-Datensatz entsprechen:
+
+```{r}
+(nrow(uebung_df) + nrow(test_df)) == nrow(flights9a)
+```
+
+Passt.
+
+
+
+### Modell 1 - Regression
+
+Beginnen wir mit einer einfachen Regression (ohne Interaktionen, Polynome, etc.).^[vgl. https://topepo.github.io/caret/train-models-by-tag.html#linear-regression]
+
+
+Eine Regression hat keine Tuningparameter.
+
+
+```{r lm-fit1, cache = TRUE}
+start <- Sys.time()
+lm_fit1 <- train(arr_delay ~ .,
+                 data = uebung_df,
+                 method = "lm",
+                 trControl = my_crossval)
+end <- Sys.time()
+
+(time_taken_lm1 <- end - start)
+
+
+#saveRDS(lm_fit1, file = "lm_fit1.rds")
+```
+
+Ohne die Begrenzung auf numerische Variablen hat meine Maschine (16GB Speicher) einen Asthmaanfall bekommen und ist steckengeblieben.^[vgl. https://stackoverflow.com/questions/51248293/error-vector-memory-exhausted-limit-reached-r-3-5-0-macos?rq=1]
+
+Das erzeugte Modell hatte in der Datei eine Größe von ca. 360MB.
+
+
+Die Koeffizienten des Modells lassen sich auf übliche Weise bestimmen:
+
+```{r}
+summary(lm_fit1)
+```
+
+Die Prädiktorenrelevanz kann man über `varImp()` abfragen. 
+
+```{r}
+varImp(lm_fit1)
+```
+
+
+### Modell 2 - Random Forest
+
+Im Gegensatz zur Regression gibt es bei Random-Forest-Modellen Tuningparameter, und zwar die Anzahl der Variablen pro Baum, hier mit `.mtry` bezeichnet. Eine Faustregel für diesen Parameter ist $\sqrt(k)$, hier also etwa oder 6.
+
+```{r tuning-grid}
+rf_grid <- data.frame(
+  .mtry = c(4, 5, 6, 7),
+  .splitrule = "variance",
+  .min.node.size = 5)
+
+rf_grid
+```
+
+
+Um Zeit zu sparen, verringern wir die Stichprobengröße auf 1000:
+
+```{r}
+uebung_df_small <- sample_n(uebung_df, size = 1000)
+```
+
+
+Dann berechnen wir das Modell; gibt man keine Hinweise auf Variation von Tuningparametern, so wählt die Funktion Standardwerte.
+
+```{r rf-fit1, cache = TRUE}
+start <- Sys.time()
+rf_fit1 <- train(arr_delay ~ .,
+                 data = uebung_df_small,
+                 method = "ranger",
+                 trControl = my_crossval)
+end <- Sys.time()
+
+(time_taken <- end - start)
+
+#saveRDS(rf_fit1, file = "lm_fit1.rds")
+#readRDS("lm_fit1.rds")
+```
+
+Einen Überblick über das berechnete Modell kann man sich so ausgeben lassen:
+
+```{r}
+rf_fit1
+```
+
+Im resultierenden Objekt sind eine Vielzahl von Informationen zu finden. So kann man sich den Modellkandidaten mit den besten Werten ausgeben lassen:
+
+```{r}
+rf_fit1$bestTune
+```
+
+Aber was ist das Kriteriem, das optimiert wird?
+
+```{r}
+rf_fit1$metric
+```
+
+Es wird nach dem *Root Mean Square Error* optimiert.
+
+Weitere Infos zum Algorithmus bekommt man z.B. so:
+
+```{r}
+modelLookup("ranger")
+```
+
+Wir sehen, dass das Modell drei Tuningparameter hat (wobei `caret` den Parameter `min.node.size` konstant hielt).
+
+```{r}
+plot(rf_fit1)
+```
+
+
+Möchte man eine bestimmte Anzahl an Kandidatenmodelle prüfen lassen, so kann man das mit `tuneLength` tun:
+
+```{r rf-fit2, cache = TRUE}
+start <- Sys.time()
+rf_fit2 <- train(arr_delay ~ .,
+                 data = uebung_df_small,
+                 method = "ranger",
+                 trControl = my_crossval,
+                 tuneLength = 4)
+end <- Sys.time()
+
+
+(time_taken <- end - start)
+
+saveRDS(rf_fit2, file = "lm_fit2.rds")
+```
+
+
+```{r}
+rf_fit2
+```
+
+
+Mit `tuneGrid` kann man die Werte der Modellkandidaten genau einstellen.
+
+
+```{r rf-fit3, cache = TRUE}
+start <- Sys.time()
+rf_fit3 <- train(arr_delay ~ .,
+                 data = uebung_df_small,
+                 method = "ranger",
+                 trControl = my_crossval,
+                 tuneGrid = rf_grid)
+end <- Sys.time()
+
+
+(time_taken <- end - start)
+
+# saveRDS(rf_fit3, file = "lm_fit3.rds")
+```
+
+
+```{r}
+rf_fit3
+```
+
+
+
+### Modell 3 - Neuronales Netz
+
+Neuronale Netze benötigen große Datensätze, daher ist unser kleiner Datensatz mit $n=1000$ sicher zu klein (gerade in Anbetracht zur Zahl der Features). Aus Vergleichsbarkeitsgründen und um die Rechenkosten zu schätzen, bietet es sich aber an, zunächst mit einem kleinen Datensatz zu arbeiten:
+
+
+```{r nn-fit1, cache = TRUE}
+start <- Sys.time()
+nn_fit1 <- train(arr_delay ~ .,
+                 data = uebung_df_small,
+                 method = "nnet",
+                 trControl = my_crossval,
+                 linout = TRUE)
+end <- Sys.time()
+
+
+(time_taken <- end - start)
+
+saveRDS(nn_fit1, file = "nn_fit1.rds")
+```
+
+Der Parameter `linout = TRUE` verhindert eine Aktivierungsfunktion, die den Wertebereich auf [0,1] beschränken würde.
+
+Das ging schnell. Vergrößern wir den Datensatz:
+
+
+
+```{r nn-fit2, cache = TRUE}
+start <- Sys.time()
+nn_fit2 <- train(arr_delay ~ .,
+                 data = uebung_df,
+                 method = "nnet",
+                 trControl = my_crossval,
+                 linout = TRUE)
+end <- Sys.time()
+
+
+(time_taken <- end - start)
+
+# saveRDS(nn_fit2, file = "nn_fit2.rds")
+```
+
+
+Es gibt verschiedene Implementierungen von neuronalen Netzen, die in `caret` angesteuert werden können, z.B. `neuralnet`. Es verfügt über 3 Modellparameter:
+
+```{r}
+modelLookup("neuralnet")
+```
+
+```{r}
+getModelInfo("neuralnet")
+```
+
+
+
+
+## Vergleich der Modellgüten
+
+
+Wie gut sagen die Modelle den Test-Datensatz vorher? Vergleichen wir die Modelle.
+
+
+### Prognosen für den Test-Datensatz berechnen
+
+
+Erstellen wir uns einen Datensatz mit den Vorhersagen (und den beobachteten Werten):
+
+```{r}
+
+test_preds <- test_df %>% 
+  select(arr_delay) %>% 
+  mutate(lm1_pred = predict(lm_fit1, newdata = test_df))
+
+test_preds <- test_df %>% 
+  select(arr_delay) %>% 
+  mutate(lm1_pred = predict(lm_fit1, newdata = test_df),
+         rf1_pred = predict(rf_fit2, newdata = test_df),
+         rf2_pred = predict(rf_fit3, newdata = test_df),
+         nn1_pred = predict(nn_fit1, newdata = test_df),
+         nn2_pred = predict(nn_fit2, newdata = test_df))
+```
+
+
+
+
+Jetzt lassen wir uns typische Kennzahlen der Modellgüte ausgeben:
+
+
+```{r}
+postResample(pred = test_preds$lm1_pred, obs = test_preds$arr_delay)
+```
+
+
+Der Vektor der Modellnamen lautet: 
+
+```{r}
+model_names <- names(test_preds)
+```
+
+
+Das wiederholen wir in einer Schleife für jedes Modell:
+
+```{r}
+test_pred_df <- test_preds %>% 
+  map_df(~ postResample(pred = ., obs = test_preds$arr_delay)) %>% 
+  mutate(statistic = c("RMSE", "Rsquared", "MAE")) %>% 
+  select(statistic, everything())
+
+test_pred_df
+```
+
+
+
+Formen wir diese Tabelle in Langform (Normalform um):
+
+```{r}
+test_pred_df_t <- test_pred_df %>% 
+  gather(key = "model_name", value = "value", -c(statistic))
+```
+
+Eine andere Form wäre:
+
+```{r}
+test_pred_df %>% 
+  gather(key = "model_name", value = "value", -c(statistic)) %>% 
+  spread(key = statistic, value = value)
+```
+
+
+### Bestes Modell identifizieren
+
+Der kleinste RMSE-Wert (nach dem Modell, dass als vorhergesagten Werte die beobachteten nimmt, also einen RSME von Null hat):
+
+```{r}
+test_pred_df_t %>% 
+  filter(statistic == "RMSE") %>% 
+  top_n(2, wt = -value)
+```
+
+Der größte R^2-Wert:
+
+```{r}
+test_pred_df_t %>% 
+  filter(statistic == "Rsquared") %>% 
+  top_n(2, wt = value)
+```
+
+
+
+
+### Visualisieren
+
+```{r}
+test_pred_df_t %>% 
+  group_by(statistic) %>% 
+  mutate(is_max = value == max(value),
+         is_min = value == min(value)) %>% 
+  ggplot(aes(y = model_name, x = value, color = is_max, shape = is_min)) +
+  geom_point(size = 5) +
+  facet_wrap(~statistic, scales = "free_x") +
+  theme(legend.position = "bottom")
+```
+
+Damit hat das neuronale Netz "gewonnen".
+
+
+# Fazit
+
+Es darf nicht vergessen werden, dass wir nur einen Teil des Datensatzes verwendet haben - schlicht aus Gründen der komputationalen Kostensparung. Insofern sind die Modellgüten nur bedingt für bare Münze zu nehmen. Diese Fallstudie hat nur einen Teil der Möglichkeiten einer ernsthaften Modellierung aufgenommen, so dass die Ergebnisse schon aus diesem Grund mit einem großen Gramm Salz zu betrachten sind. Außerdem fanden nur relativ weniger Modell Eingang; es bleibt also offen, ob nicht andere Modelle "besser" sind. Beim Wort "besser" muss man immer im Kopf behalten, dass "besser" eine *bedingte* Aussage ist: *besser* vor dem Hintergrund gewisser anderer Modelle, gewisser Transformationen, gewisser Implementierungen, gewisser Stichprobenmerkmale, gewisser Implementierungsspezifika und so weiter.
+
