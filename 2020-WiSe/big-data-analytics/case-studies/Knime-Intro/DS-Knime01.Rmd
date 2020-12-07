@@ -1,0 +1,431 @@
+---
+title: "Practicing Data Science with Knime (and R) 🔮🗂📊🗃🚀"
+subtitle: "DRAFT - subject to change"
+author: "Sebastian Sauer"
+date: "12/7/2020"
+output: 
+  html_document:
+    toc: true
+    toc_float:
+      toc_collapsed: true
+    toc_depth: 3
+    number_sections: true
+    theme: lumen
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  #cache = TRUE,
+  echo = FALSE, # hide code unless otherwise noted in chunk options
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+```
+
+
+
+
+
+# Intro to Knime
+
+## What is Knime?
+
+[Knime Analytics Platform](https://www.knime.com/knime-analytics-platform) is a data science software with a graph-based GUI; no need for coding. Read more [here](https://www.knime.com/sites/default/files/KNIME_analytics-platform_productsheet%202020.pdf). 
+
+Check out [Wikipedia's site](https://de.wikipedia.org/wiki/KNIME) on Knime.
+
+
+## Download
+
+
+Download the software (all major platforms) [here](https://www.knime.com/downloads).
+
+
+
+## Resources
+
+There are plenty of resources got get your started; here's a curated (opinionated) selection:
+
+- The [Knime Hub](https://hub.knime.com/)
+- [Cheat Sheets](https://www.knime.com/cheat-sheets), particularly [Building a KNIME Workflow for Beginners](https://www.knime.com/sites/default/files/100819_CheatSheet_Beginner_A4.pdf)
+- [Example Workflows](https://hub.knime.com/knime/spaces/Examples/latest/)
+- Added functionality via [Components](https://hub.knime.com/knime/spaces/Examples/latest/00_Components/)
+- [Knime books](https://www.knime.com/knimepress)
+- [Knime courses]()
+- [Knime White Papers](https://www.knime.com/white-papers)
+- The general [Knime Learning Program](https://www.knime.com/learning)
+- [Knime docs](https://docs.knime.com/)
+- [Knime forum](https://forum.knime.com/)
+- [Knime Youtube channel](https://www.youtube.com/channel/UCRbKmV_XYB7C12SPBokLVHQ)
+- [Knime self-paced courses](https://www.knime.com/knime-self-paced-courses)
+- [Knime course at Coursera](https://www.coursera.org/lecture/code-free-data-science/introduction-to-knime-analytics-platform-YBD5E), freemium licence
+
+
+
+## Setup
+
+
+
+- [Download](https://www.knime.com/downloads) the software
+- Read the cheat sheet [Building a KNIME Workflow for Beginners](https://www.knime.com/sites/default/files/100819_CheatSheet_Beginner_A4.pdf)
+- Get to know to the [Knime Workbench](https://docs.knime.com/latest/analytics_platform_workbench_guide/index.html)
+- Make sure your internet connection is stable; you may need to install Knime extensions, and we will download and upload a number of items (may include largish data).
+- Depending on your system, you may need admin rights, in order to install Knime extensions. Please try to i[nstall a Knime extension](https://docs.knime.com/latest/analytics_platform_extensions_and_integrations/index.html) upfront.
+
+
+## Getting started
+
+- Familiarise yourself with (at least) the core ideas of statistical learning, eg., via [An Introduction to Statistical Learning](http://faculty.marshall.usc.edu/gareth-james/ISL/); a great book, free access (watch out for upcoming second edition!)
+- [First Workflow](https://www.knime.com/getting-started-guide)
+- Have a glimpse at some of the [machine learning algos](https://www.knime.com/sites/default/files/110519_KNIME_Machine_Learning_Cheat%20Sheet.pdf) implemented in Knime
+
+
+
+# Didactic outline
+
+
+A number of *guided practiced* (GP) and *exercises* (Ex) are provided. In the first step, the instructor presents some materials alongside with concepts and how-to (GP). This is followed by exercises (without instantaneous solutions) to be solved by the participants. 
+
+
+# (Big) data wrangling
+
+## Guided Practice 1: Data Wrangling
+
+
+- Download [this workflow](https://kni.me/w/AS9_Hi7wc3iTwgL_)
+- Follow the steps outlined by the instructor.
+- Checkout the Knime help (`description` field in the Knime workbench) for each node.
+
+
+
+## Ex1: (Big) data wrangling
+
+Let's explore the NYC Yellow cab taxi data set ([source](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)).
+
+### Ex1a: Largish data set 1 (500k rows)
+
+The following workflow demonstrates typical data wrangling steps in "largish" data (some hundred MBs).
+
+
+#### Redo this workflow in Knime
+
+- Follow the steps shown by the instructor.
+- Import [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/largish-data-wrangling).
+- Rebuild the workflow from scratch. Pick and choose the nodes from the knode repo in your Knime app. Be sure to configure the nodes accordingly. Note that while you can copy-pase nodes from the workflow provided, I suggest that you build the workflow yourself (so that you learn more).
+
+
+#### Redo this workflow in Excel
+
+Try to convert the workflow to Excel (particularly useful for Excel aficionados).
+
+
+#### Redo this workflow in R
+
+See [here](https://data-se.netlify.app/2020/12/05/execution-time-for-largish-data/#data-set-1) for a in-principle-solution.
+
+
+
+
+### Ex1b: Largish data set 1 (1500k rows)
+
+
+Here come the same operations, but the data  set is large (~500 MB, 1500k rows).
+
+- Download the data set [here](https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-06.csv).
+- Redo the analysis in Knime, Excel, and R. See [here](https://data-se.netlify.app/2020/12/05/execution-time-for-largish-data/#data-set-2) for a type of solution for the R way.
+
+
+
+# Data Vizualization
+
+
+## GP1: Compose a scatterplot
+
+- Find the workflow in your Knime explorer: Examples > Data Viz > Java Script > 12 Bivariate
+- Alternative, download [from Knime hub](https://hub.knime.com/knime/spaces/Examples/latest/03_Visualization/02_JavaScript/12_Bivariate_Visual_Exploration_with_Scatter_Plot)
+- Redo the steps outlined by the instructor.
+
+
+
+
+## Ex1: Prices of diamonds
+
+
+### Data set
+
+First, download [this data set](https://vincentarelbundock.github.io/Rdatasets/csv/ggplot2/diamonds.csv). See [here](https://vincentarelbundock.github.io/Rdatasets/doc/ggplot2/diamonds.html) for the data dictionary.
+
+
+### Objective
+
+
+Visualize the distribution of the price, grouped by cut. Add the mean and/or the median to the picture for each subgroup.
+
+
+
+
+### Solution in Knime
+
+
+- Check out [this solution](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/vis-diamonds1).
+
+
+
+### Solution in R
+
+Check out [this solution](https://data-se.netlify.app/2020/12/07/ex-visualizing-diamonds/).
+
+
+
+
+## Ex1: Movie budgets
+
+
+## Data set
+
+First, download [this data set](https://vincentarelbundock.github.io/Rdatasets/csv/ggplot2movies/movies.csv). See [here](https://vincentarelbundock.github.io/Rdatasets/doc/ggplot2movies/movies.html) for the data dictionary.
+
+
+## Objective
+
+
+Visualize the association of movie budget and movie rating, separed for each genre.
+
+
+
+## Solution in Knime
+
+
+- Please provide 🙃👨💻🙋.
+
+
+## Solution in R
+
+
+- See [this case study](https://data-se.netlify.app/2020/11/13/fallstudie-zur-regressionsanalyse-ggplot2movies/#datensatz-umbauen-pivotieren-moderierender-effekt-von-genre).
+
+
+
+
+# Case Study: Titanic disaster
+
+
+## Objective
+
+Try to predict who ~~will~~ has drowned (died) and who survived. This is a famous competition for practicing data science, as can be seen in [this Kaggle competition](https://www.kaggle.com/c/titanic).
+
+
+## Data set
+
+*Note* that the data consists of two parts: The *train* data set and the *test* data set.
+
+You can access the data from [here](https://github.com/sebastiansauer/Statistiklehre/tree/main/data/titanic).
+Get the [train data set here](https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/data/titanic/train.csv); and the test data set [here](https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/data/titanic/test.csv).
+
+
+The data is also available from the Kaggle competition page.
+
+
+Kepp in mind: Our objective is to predict `Survived`. 
+
+
+## Kaggle competition (optional)
+
+Engage in a [Kaggle](https://en.wikipedia.org/wiki/Kaggle) competition for this case study (if you want). Sign up for Kaggle, log in and enrol to the [Titanic competition](https://www.kaggle.com/c/titanic).
+
+The beauty is that your test competition will get scored, so you'll get some kind of objective feedback on the quality of your predictions.
+
+
+## Logistic regression
+
+
+
+### GP1
+
+- Download [this workflow](https://hub.knime.com/knime/spaces/Examples/latest/04_Analytics/04_Classification_and_Predictive_Modelling/06_Logistic_Regression) or find it in Knime Explorer (Examples > 04 Analytics > 06 Logistic Regression).
+- Follow the steps outlines by the instructor.
+
+
+### Ex1: Use a logistic regression to predict Titanic survival.
+
+
+
+
+
+
+
+### Some hints
+
+- Convert the numeric variable `Survived` to nominal level, in order to convince Knime to do classification.
+- Drop `Name` in order to keep stuff simple.
+- Focus on `PassengerID` and `Survived` (predicted); only save these information to CSV.
+
+
+
+
+
+### Solution in Knime
+
+
+[Get Knime Workflow file](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-glm1)
+
+
+
+## Tree model
+
+
+### GP1
+
+- Let's work on [this example](https://hub.knime.com/knime/spaces/Examples/latest/04_Analytics/05_Regressions/01_Learning_a_Simple_Regression_Tree); find it here in your Knime Explorer: Examples > 04 Analytics > 01 Decision Tree.
+
+
+### Ex1
+
+
+- Build a classification tree for the Titanic data set.
+- Submit it to Kaggle, and check your score.
+
+
+#### Solution via Knime
+
+
+Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-tree1).
+
+
+
+
+## Boosted Trees
+
+
+
+
+### GP1
+
+- Let's work on [this example](https://hub.knime.com/knime/spaces/Examples/latest/04_Analytics/04_Classification_and_Predictive_Modelling/05_Gradient_Boosted_Trees); find it here in your Knime Explorer: Examples > 04 Analytics > 04_Classification and Predictive Modelling > 05 Gradient Boosted Trees.
+
+
+
+
+### Ex1
+
+Use the following tuning parameters:
+
+- max depth: 4
+- Learning rate: 0.1
+
+
+
+### Solution via Knime
+
+
+Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-boostedtrees).
+
+
+
+
+## Random Forest 1, simple
+
+
+### GP1
+
+
+- Let's work on [this example](https://hub.knime.com/knime/spaces/Examples/latest/04_Analytics/13_Meta_Learning/02_Learning_a_Random_Forest); find it here in your Knime Explorer: `Examples > 04_Analytics > 13_Meta_Learning > 02_Learning_a_Random_Forest`
+
+- You may want tot check out the Knime course tapping into [this topic](https://www.knime.com/self-paced-course/l2-ds-knime-analytics-platform-for-data-scientists-advanced/lesson4).
+
+
+
+
+### Ex1
+
+
+
+Use the following tuning parameters:
+
+- 500 trees
+- max depth: 10
+- min. node size: 2
+
+- Build the respective model for the Titanic data set; `Survived` is the outcome.
+- Submit it to Kaggle, and check your score.
+
+
+Feel free to check out e.g., [this video](https://www.youtube.com/watch?v=xGWYIafHyiw) on how to use Random Forests models for the Titanic Kaggle competition.
+
+
+### Solution via Knime
+
+Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-rf1).
+
+
+
+
+
+## Random Forest 2 with parameter tuning
+
+
+## GP1
+
+- Let's work on [this example](https://hub.knime.com/knime/spaces/Examples/latest/04_Analytics/11_Optimization/06_Parameter_Optimization_two_examples); find it here in your Knime Explorer: `Examples > 04_Analytics >  11_Optimization > 06_Parameter_Optimization_two_examples`
+
+- Beware, execution of the second workflow may take some time, "computationally expensive", as they say.
+
+
+
+
+## Ex1
+
+Optimize the following tuning parameters:
+
+- Number of variables to consider per tree `columnAbsolutePerTree` (also known as `mtry`): `min=1, max=5`; step size is 1.
+
+
+Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-rf4).
+
+
+
+## Solution via Knime
+
+
+
+Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-rf2).
+
+
+
+
+## Random Forest 3, parameter tuning and cross validation
+
+
+This time we'll add cross validation to the menu.
+
+
+### GP1
+
+- Let's work on [this example](https://hub.knime.com/knime/spaces/Examples/latest/04_Analytics/11_Optimization/01_Cross_Validation_with_SVM); find it here in your Knime Explorer: `Examples > 04_Analytics >  11_Optimization > 01_Cross_Validation_with_SVM`
+
+
+
+
+
+
+### Solution via Knime
+
+
+
+Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-rf4).
+
+
+
+
+
+
+
+
