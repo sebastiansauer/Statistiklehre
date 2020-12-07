@@ -74,9 +74,9 @@ There are plenty of resources got get your started; here's a curated (opinionate
 
 
 
-- [Download](https://www.knime.com/downloads) the software
-- Read the cheat sheet [Building a KNIME Workflow for Beginners](https://www.knime.com/sites/default/files/100819_CheatSheet_Beginner_A4.pdf)
-- Get to know to the [Knime Workbench](https://docs.knime.com/latest/analytics_platform_workbench_guide/index.html)
+- [Download](https://www.knime.com/downloads) the software.
+- Read the cheat sheet [Building a KNIME Workflow for Beginners](https://www.knime.com/sites/default/files/100819_CheatSheet_Beginner_A4.pdf).
+- Get to know to the [Knime Workbench](https://docs.knime.com/latest/analytics_platform_workbench_guide/index.html).
 - Make sure your internet connection is stable; you may need to install Knime extensions, and we will download and upload a number of items (may include largish data).
 - Depending on your system, you may need admin rights, in order to install Knime extensions. Please try to i[nstall a Knime extension](https://docs.knime.com/latest/analytics_platform_extensions_and_integrations/index.html) upfront.
 
@@ -84,15 +84,15 @@ There are plenty of resources got get your started; here's a curated (opinionate
 ## Getting started
 
 - Familiarise yourself with (at least) the core ideas of statistical learning, eg., via [An Introduction to Statistical Learning](http://faculty.marshall.usc.edu/gareth-james/ISL/); a great book, free access (watch out for upcoming second edition!)
-- [First Workflow](https://www.knime.com/getting-started-guide)
-- Have a glimpse at some of the [machine learning algos](https://www.knime.com/sites/default/files/110519_KNIME_Machine_Learning_Cheat%20Sheet.pdf) implemented in Knime
+- Fly on your [first Knime Workflow](https://www.knime.com/getting-started-guide)l
+- Have a glimpse at some of the [machine learning algos](https://www.knime.com/sites/default/files/110519_KNIME_Machine_Learning_Cheat%20Sheet.pdf) implemented in Knime.
 
 
 
 # Didactic outline
 
 
-A number of *guided practiced* (GP) and *exercises* (Ex) are provided. In the first step, the instructor presents some materials alongside with concepts and how-to (GP). This is followed by exercises (without instantaneous solutions) to be solved by the participants. 
+A number of *guided practices* (GP) and *exercises* (Ex) are provided in this course. In the first step, the instructor will present some materials alongside with concepts and some how-to (GP). This is followed by exercises (without instantaneous solutions) to be solved by the participants. Discussion in the plenary ensues.
 
 
 # (Big) data wrangling
@@ -100,7 +100,7 @@ A number of *guided practiced* (GP) and *exercises* (Ex) are provided. In the fi
 ## Guided Practice 1: Data Wrangling
 
 
-- Download [this workflow](https://kni.me/w/AS9_Hi7wc3iTwgL_)
+- Download [this workflow](https://kni.me/w/AS9_Hi7wc3iTwgL_).
 - Follow the steps outlined by the instructor.
 - Checkout the Knime help (`description` field in the Knime workbench) for each node.
 
@@ -175,7 +175,7 @@ Visualize the distribution of the price, grouped by cut. Add the mean and/or the
 ### Solution in Knime
 
 
-- Check out [this solution](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/vis-diamonds1).
+Check out [this solution](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/vis-diamonds1).
 
 
 
@@ -204,13 +204,13 @@ Visualize the association of movie budget and movie rating, separed for each gen
 ## Solution in Knime
 
 
-- Please provide 🙃👨💻🙋.
+Please provide 🙃👨💻🙋.
 
 
 ## Solution in R
 
 
-- See [this case study](https://data-se.netlify.app/2020/11/13/fallstudie-zur-regressionsanalyse-ggplot2movies/#datensatz-umbauen-pivotieren-moderierender-effekt-von-genre).
+See [this case study](https://data-se.netlify.app/2020/11/13/fallstudie-zur-regressionsanalyse-ggplot2movies/#datensatz-umbauen-pivotieren-moderierender-effekt-von-genre).
 
 
 
@@ -294,7 +294,7 @@ The beauty is that your test competition will get scored, so you'll get some kin
 - Submit it to Kaggle, and check your score.
 
 
-#### Solution via Knime
+### Solution via Knime
 
 
 Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-tree1).
@@ -372,7 +372,7 @@ Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/la
 ## Random Forest 2 with parameter tuning
 
 
-## GP1
+### GP1
 
 - Let's work on [this example](https://hub.knime.com/knime/spaces/Examples/latest/04_Analytics/11_Optimization/06_Parameter_Optimization_two_examples); find it here in your Knime Explorer: `Examples > 04_Analytics >  11_Optimization > 06_Parameter_Optimization_two_examples`
 
@@ -381,7 +381,7 @@ Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/la
 
 
 
-## Ex1
+### Ex1
 
 Optimize the following tuning parameters:
 
@@ -392,7 +392,7 @@ Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/la
 
 
 
-## Solution via Knime
+### Solution via Knime
 
 
 
@@ -427,5 +427,8 @@ Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/la
 
 
 
+# Outro
 
+
+That was ist, folks! I hope you enjoyed our journey. There's way more to explore; check out the resources for more.
 
