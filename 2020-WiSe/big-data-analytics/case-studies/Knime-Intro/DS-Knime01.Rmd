@@ -115,7 +115,14 @@ Let's explore the NYC Yellow cab taxi data set ([source](https://www1.nyc.gov/si
 The following workflow demonstrates typical data wrangling steps in "largish" data (some hundred MBs).
 
 
-#### Redo this workflow in Knime
+#### Objective: Get max tip proportion per hour
+
+- Compute the maximal tip proportion (in relation to total fare) per hour of day. Refine to credit card payment only.
+- Visualize this statistic.
+
+
+
+#### GP1: Redo this workflow in Knime
 
 - Follow the steps shown by the instructor.
 - Import [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/largish-data-wrangling).
