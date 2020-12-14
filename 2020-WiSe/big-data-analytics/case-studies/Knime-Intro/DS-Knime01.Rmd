@@ -100,9 +100,16 @@ A number of *guided practices* (GP) and *exercises* (Ex) are provided in this co
 ## Guided Practice 1: Data Wrangling
 
 
-- Download [this workflow](https://kni.me/w/AS9_Hi7wc3iTwgL_).
+- Download [this workflow](https://kni.me/w/AS9_Hi7wc3iTwgL_): *Example Workflow for ETL Basics Operations*; alternatively you'll find it in the Knime examples: `Examples < 02_ETL_Data_Manipulation > 00_Basic_Examples > 02_ETL_Basics`.
 - Follow the steps outlined by the instructor.
 - Checkout the Knime help (`description` field in the Knime workbench) for each node.
+
+
+🦖: There appears to be a bug in the string-to-date conversion. Check out [this improved (?) version](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/02_ETL_Basics-edited), where the bug is solved.
+
+
+
+
 
 
 
@@ -179,12 +186,18 @@ Visualize the distribution of the price, grouped by cut. Add the mean and/or the
 
 
 
-### Solution in Knime
+### Solution in Knime without saving to disk
 
 
 Check out [this solution](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/vis-diamonds1).
 
 
+### Solution in Knime with saving to disk
+
+Check out [this solution](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/vis-diamonds2).
+
+
+Similarly, [here's](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/00_Visual_Analysis_of_Sales_Data-save2file) a solution  *save to disk* for the example "Visual Analysis of the Sales Data"
 
 ### Solution in R
 
