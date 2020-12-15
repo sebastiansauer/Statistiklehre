@@ -69,6 +69,15 @@ There are plenty of resources got get your started; here's a curated (opinionate
 - [Knime course at Coursera](https://www.coursera.org/lecture/code-free-data-science/introduction-to-knime-analytics-platform-YBD5E), freemium licence
 
 
+## Diving deeper into theory
+
+
+
+
+- Have a glimpse at some of the [machine learning algos](https://www.knime.com/sites/default/files/110519_KNIME_Machine_Learning_Cheat%20Sheet.pdf) implemented in Knime.
+- Familiarise yourself with (at least) the core ideas of statistical learning, eg., via [An Introduction to Statistical Learning](http://faculty.marshall.usc.edu/gareth-james/ISL/); a great book, free access (watch out for upcoming second edition!)
+
+
 
 ## Setup
 
@@ -81,15 +90,25 @@ There are plenty of resources got get your started; here's a curated (opinionate
 - Depending on your system, you may need admin rights, in order to install Knime extensions. Please try to i[nstall a Knime extension](https://docs.knime.com/latest/analytics_platform_extensions_and_integrations/index.html) upfront.
 
 
-## Getting started
+# Let's get going! 
 
-- Familiarise yourself with (at least) the core ideas of statistical learning, eg., via [An Introduction to Statistical Learning](http://faculty.marshall.usc.edu/gareth-james/ISL/); a great book, free access (watch out for upcoming second edition!)
-- Fly on your [first Knime Workflow](https://www.knime.com/getting-started-guide)l
-- Have a glimpse at some of the [machine learning algos](https://www.knime.com/sites/default/files/110519_KNIME_Machine_Learning_Cheat%20Sheet.pdf) implemented in Knime.
+## First work in Knime
 
 
+- [Get to know to your Knime cockpit](https://www.knime.com/getting-started-guide)
 
-# Didactic outline
+
+## First Workflow
+
+- Implement [this workflow](https://hub.knime.com/knime/spaces/Examples/latest/02_ETL_Data_Manipulation/00_Basic_Examples/00_Visual_Analysis_of_Sales_Data), a workflow that visualizes sales data.
+- The workflow is available in Knime under examples: `Examples > 02_ETL_Data_Manipulation > 00_Basic_Examples > 00_Visual_Analysis_of_Sales_Data`
+- Note that if you would like to change the color scheme, there's a tick box you need to check; see under "General options" and tick "Use row colors".
+- In addition, you might need to install the Knime Extension BIRT to see a static version of created images (right click and hit the magnifier icon to see the created images).
+- Similarly, to save the created image to disk, add the node "Image Writer (Port)".
+- Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/00_Visual_Analysis_of_Sales_Data-save2file), where the aforementioned pieces have been implemented.
+
+
+# Didactic outline of this course
 
 
 A number of *guided practices* (GP) and *exercises* (Ex) are provided in this course. In the first step, the instructor will present some materials alongside with concepts and some how-to (GP). This is followed by exercises (without instantaneous solutions) to be solved by the participants. Discussion in the plenary ensues.
@@ -104,6 +123,7 @@ A number of *guided practices* (GP) and *exercises* (Ex) are provided in this co
 - Follow the steps outlined by the instructor.
 - Checkout the Knime help (`description` field in the Knime workbench) for each node.
 
+---
 
 🦖: There appears to be a bug in the string-to-date conversion. Check out [this improved (?) version](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/02_ETL_Basics-edited), where the bug is solved.
 
@@ -117,9 +137,14 @@ A number of *guided practices* (GP) and *exercises* (Ex) are provided in this co
 
 Let's explore the NYC Yellow cab taxi data set ([source](https://www1.nyc.gov/site/tlc/about/tlc-trip-record-data.page)).
 
+
+
 ### Ex1a: Largish data set 1 (500k rows)
 
 The following workflow demonstrates typical data wrangling steps in "largish" data (some hundred MBs).
+
+Use the [June 2020 Yellow Cab](https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-06.csv) data for modelling.
+
 
 
 #### Objective: Get max tip proportion per hour
@@ -153,8 +178,8 @@ See [here](https://data-se.netlify.app/2020/12/05/execution-time-for-largish-dat
 
 Here come the same operations, but the data  set is large (~500 MB, 1500k rows).
 
-- Download the data set [here](https://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2020-06.csv).
-- Redo the analysis in Knime, Excel, and R. See [here](https://data-se.netlify.app/2020/12/05/execution-time-for-largish-data/#data-set-2) for a type of solution for the R way.
+- Download the [2020 January Yellow Cab taxi datta set](hhttps://s3.amazonaws.com/nyc-tlc/trip+data/yellow_tripdata_2019-01.csv).
+- Redo the analysis in Knime, Excel, and R. See [here](https://data-se.netlify.app/2020/12/05/execution-time-for-largish-data/#data-set-2) for a type of solution in the R way.
 
 
 
@@ -264,6 +289,14 @@ Engage in a [Kaggle](https://en.wikipedia.org/wiki/Kaggle) competition for this 
 The beauty is that your test competition will get scored, so you'll get some kind of objective feedback on the quality of your predictions.
 
 
+### Kaggle scores
+
+Feel freee to check out my [Kaggle scores](https://www.kaggle.com/ssauer) in the Titanic competition. Don't expect a miracle though; I've just been playing ....
+
+
+
+
+
 ## Logistic regression
 
 
@@ -286,7 +319,8 @@ The beauty is that your test competition will get scored, so you'll get some kin
 
 - Convert the numeric variable `Survived` to nominal level, in order to convince Knime to do classification.
 - Drop `Name` in order to keep stuff simple.
-- Focus on `PassengerID` and `Survived` (predicted); only save these information to CSV.
+- You might want to exclude missing values.
+- For a Kaggle submission, only save the variables `PassengerID` and `Survived` (predicted); these two columns need be saved as CSV.
 
 
 
@@ -297,6 +331,13 @@ The beauty is that your test competition will get scored, so you'll get some kin
 
 [Get Knime Workflow file](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-glm1)
 
+
+
+### Solution in R
+
+
+
+Check out [this post](https://data-se.netlify.app/2020/12/14/titanic-tidymodels-glm1/). 
 
 
 ## Tree model
@@ -319,6 +360,13 @@ The beauty is that your test competition will get scored, so you'll get some kin
 
 Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-tree1).
 
+
+
+### Solution in R
+
+
+
+Check out [this post](https://data-se.netlify.app/2020/12/14/titani-tidymodels-tree/). 
 
 
 
@@ -349,6 +397,10 @@ Use the following tuning parameters:
 Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-boostedtrees).
 
 
+
+### Solution via R
+
+Check out [this post](https://data-se.netlify.app/2020/12/14/titanic-tidymodels-boost-simple/).
 
 
 ## Random Forest 1, simple
@@ -386,6 +438,9 @@ Feel free to check out e.g., [this video](https://www.youtube.com/watch?v=xGWYIa
 Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-rf1).
 
 
+### Solution via R
+
+Check out [this post](https://data-se.netlify.app/2020/12/14/titanic-tidymodels-rf1/).
 
 
 
@@ -443,6 +498,16 @@ This time we'll add cross validation to the menu.
 Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/titanic-rf4).
 
 
+### Solution via R
+
+Check out [this post](https://data-se.netlify.app/2020/12/14/titanic-tidymodels-rf2/).
+
+
+
+### BONUS: Boosting including tuning and crossvalidation via R
+
+
+Check out [this post](https://data-se.netlify.app/2020/12/14/titanic-tidymodels-boost/).
 
 
 
