@@ -1,10 +1,12 @@
 ---
 title: "Beispielanalyse zum Prognose-Wettbewerb"
 author: "Sebastian Sauer"
-output: 
+output:
+  word_document:
+    toc: yes
   html_document:
-    number_sections: TRUE
-    toc: TRUE
+    number_sections: yes
+    toc: yes
 ---
 
 

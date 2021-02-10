@@ -1,16 +1,19 @@
 ---
-title: "Practicing Data Science with Knime (and R) 🔮🗂📊🗃🚀"
-subtitle: "DRAFT - subject to change"
+title: "Practicing Data Science with Knime"
 author: "Sebastian Sauer"
 date: "12/7/2020"
-output: 
+output:
   html_document:
-    toc: true
-    toc_float:
-      toc_collapsed: true
+    toc: yes
     toc_depth: 3
-    number_sections: true
-    theme: lumen
+    number_sections: yes
+  pdf_document:
+    toc: yes
+    toc_depth: '3'
+  word_document:
+    toc: yes
+    toc_depth: '3'
+subtitle: DRAFT - subject to change
 ---
 
 ```{r setup, include=FALSE}
@@ -125,7 +128,7 @@ A number of *guided practices* (GP) and *exercises* (Ex) are provided in this co
 
 ---
 
-🦖: There appears to be a bug in the string-to-date conversion. Check out [this improved (?) version](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/02_ETL_Basics-edited), where the bug is solved.
+NOTE: There appears to be a bug in the string-to-date conversion. Check out [this improved (?) version](https://hub.knime.com/sebastian_sauer/spaces/Public/latest/02_ETL_Basics-edited), where the bug is solved.
 
 
 
@@ -249,7 +252,7 @@ Visualize the association of movie budget and movie rating, separed for each gen
 ## Solution in Knime
 
 
-Please provide 🙃👨💻🙋.
+Please provide :-)
 
 
 ## Solution in R
@@ -500,7 +503,7 @@ Check out [this workflow](https://hub.knime.com/sebastian_sauer/spaces/Public/la
 
 ### Solution via R
 
-Check out [this post](https://data-se.netlify.app/2020/12/14/titanic-tidymodels-rf2/).
+Check out [this post](https://data-se.netlify.app/2020/12/14/titanic-itdymodels-rf2/).
 
 
 
