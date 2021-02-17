@@ -13,6 +13,7 @@ output:
 
 Im Datensatz `tips` soll die Zielvariable `tip` im *Test*-Datensatz vorhergesagt werden. Dazu können alle übrigen Variablen im Trainings-Datensatz als Prädiktoren herangezogen werden.
 
+In Ihrer Prüfungsleistung wird ein anderer Datensatz verwendet; das Beispiel mit `tips` zeigt einige wesentliche Aspekte der Analyse.
 
 
 # Pakete laden
@@ -31,6 +32,20 @@ Den Train-Datensatz haben Sie vorliegen; dort sind X- und Y-Variablen bekannt. D
 tips_train <- read_csv("https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/data/tips/tips_train.csv")
 tips_test <- read_csv("https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/data/tips/tips_test.csv")
 ```
+
+
+*Ihr* Skript sollte zu Beginn den Datensatz *Ihrer* Prüfungsleistung importieren. Dieser Datensatz soll von der vom Dozenten ausgewiesenen Webseite bezogen werden. Lokal gespeicherte Datensätze dürfen (aus Gründen der Nachprüfgbarkeit der Ergebnisse) nicht verwendet werden.
+
+
+
+```{r}
+train <- read_csv("https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/2021-SoSe/Prognose-Wettbewerb/Daten/Trainingsdaten.csv")
+
+test <- read_csv("https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/2021-SoSe/Prognose-Wettbewerb/Daten/Anwendungsdaten.csv")
+```
+
+
+
 
 
 # Unbekannte Variable auf NA setzen

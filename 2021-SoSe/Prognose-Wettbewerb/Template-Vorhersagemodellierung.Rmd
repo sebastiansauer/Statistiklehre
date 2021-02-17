@@ -38,10 +38,15 @@ library(tidyverse)
 
 Daten einlesen:
 
+
+
+
 ```{r}
-train <- read_csv("https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/data/tips/tips_train.csv")
-test <- read_csv("https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/data/tips/tips_test.csv")
+train <- read_csv("https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/2021-SoSe/Prognose-Wettbewerb/Daten/Trainingsdaten.csv")
+
+test <- read_csv("https://raw.githubusercontent.com/sebastiansauer/Statistiklehre/main/2021-SoSe/Prognose-Wettbewerb/Daten/Anwendungsdaten.csv")
 ```
+
 
 
 Testen, ob das Einlesen funktioniert hat:
@@ -60,7 +65,7 @@ Bei Einzelarbeiten sollte der reine Text dieses Abschnitts einen Umfang von ca. 
 
 ```{r}
 train %>% 
-  ggplot(aes(x = total_bill)) + 
+  ggplot(aes(x = punkte)) + 
   geom_histogram()
 ```
 
@@ -76,7 +81,7 @@ Wenden Sie hier Ihr Modell an und interpretieren Sie Ihr Ergebnis. Bei Einzelarb
 Mein Lieblingsmodell bla bla bla:
 
 ```{r}
-lm.model <- lm(total_bill ~ size, data = train)
+lm.model <- lm(punkte ~ lernzeit, data = train)
 summary(lm.model)
 ```
 
@@ -91,7 +96,7 @@ Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod 
 Modell zur Vorhersage auf Testdatensatz anwenden und als neue Spalte im Test-Datensatz speichern:
 
 ```{r}
-tips_test_mit_vorhersage <-
+test_mit_vorhersage <-
   test %>% 
   mutate(pred = predict(lm.model, newdata = test))
 ```
@@ -99,14 +104,14 @@ tips_test_mit_vorhersage <-
 Kontrolle, ob alles gut aussieht:
 
 ```{r}
-glimpse(tips_test_mit_vorhersage)
+glimpse(test_mit_vorhersage)
 ```
 
 
 Prognosedaten als CSV-Datei schreiben:
 
 ```{r}
-tips_test_mit_vorhersage %>% 
+test_mit_vorhersage %>% 
   select(id, pred) %>% 
   write_csv("Raetsel_Rudi_0123456_Prognose.csv")
 ```
